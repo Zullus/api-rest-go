@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+  apigo:
+    build:
+      dockerfile: ../api/Dockerfile
+      context: .
+    image: golang
+    container_name: apigo
+    ports:
+      - "7000"
+    networks:
+      - apirestgo
+    depends_on:
+      - "databank"
+  databank:
+    container_name: databank
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+      --disable-partition-engine-check
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./dados:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: t3MzFHDD0Fvd
+      MYSQL_DATABASE: apirestgo
+      MYSQL_USER: apirestgo
+      MYSQL_PASSWORD: t3MzFHDD0Fvd
+    networks:
+      - apirestgo
+networks:
+  apirestgo:
+    driver: bridge
