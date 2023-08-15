@@ -5,4 +5,4 @@ ENV GOPATH=/app
 COPY . /app/api
 RUN go build main.go
 ENTRYPOINT ["./main"]
-EXPOSE 7000
+EXPOSE 8000
